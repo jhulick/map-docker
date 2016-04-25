@@ -1,0 +1,53 @@
+$setup = <<SCRIPT
+echo "Stopping and removing existing containers"
+#stop and remove any existing containers
+docker stop $(docker ps -a -q)
+docker rm --force $(docker ps -a -q)
+SCRIPT
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/trusty64"
+
+  config.vm.synced_folder "../max-cloud-demo", "/max-cloud-demo", create: true
+  config.vm.network "forwarded_port", guest: 8200, host: 18200
+  config.vm.network "forwarded_port", guest: 8081, host: 18081 # UI for testing
+  config.vm.network "forwarded_port", guest: 8761, host: 18761
+  #config.vm.network "forwarded_port", guest: 8989, host: 18989
+  config.vm.network "forwarded_port", guest: 9002, host: 19002
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 3000
+    v.cpus = 2
+  end
+
+  # Setup the prior to container rebuild
+  #config.vm.provision "shell", run: "always", inline: $setup
+  
+  config.vm.provision "docker" do |d|
+    d.build_image "--tag=java /vagrant/java"
+    d.build_image "--tag=redis /vagrant/redis"
+    d.build_image "--tag=cas /vagrant/cas"
+    d.build_image "--tag=registry /vagrant/registry"
+    d.build_image "--tag=ui /vagrant/ui"
+    d.build_image "--tag=resource /vagrant/resource"
+    #d.build_image "--tag=turbine /vagrant/turbine"
+    d.build_image "--tag=gateway /vagrant/gateway"
+  end
+
+  config.vm.provision "docker", run: "always" do |d|
+    d.run "redis"
+    d.run "cas",
+      args: "-p 9002:9002 -v /max-cloud-demo:/max-cloud-demo"
+    d.run "registry",
+      args: "-p 8761:8761 -v /max-cloud-demo:/max-cloud-demo"
+    d.run "ui",
+      args: "-p 8081:8081 -v /max-cloud-demo:/max-cloud-demo --link registry:registry --link redis:redis"
+    d.run "resource",
+      args: "-v /max-cloud-demo:/max-cloud-demo --link registry:registry --link redis:redis"
+    d.run "gateway",
+      args: "-p 8200:8200 -v /max-cloud-demo:/max-cloud-demo --link registry:registry --link redis:redis --link ui:ui --link resource:resource --link cas:cas"
+    #d.run "turbine",
+    #  args: "-p 8989:8989 -v /max-cloud-demo:/max-cloud-demo --link registry:registry"
+  end
+
+end

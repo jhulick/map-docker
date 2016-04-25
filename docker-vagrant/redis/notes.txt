@@ -1,0 +1,4 @@
+
+Ping the container, from wihtin the host
+
+docker run --link redis:redis redis redis-cli -h redis ping

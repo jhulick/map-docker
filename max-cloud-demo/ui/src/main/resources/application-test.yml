@@ -1,0 +1,10 @@
+logging:
+    level:
+        org.springframework.security: INFO
+    file: ui-test.log
+
+spring:
+    redis:
+        host: redis
+        port: 6379
+        default_expire_time: 86400

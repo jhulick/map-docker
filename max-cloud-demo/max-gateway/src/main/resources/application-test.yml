@@ -1,0 +1,27 @@
+server:
+    port: 8200
+
+logging:
+    level:
+        org.springframework.security: DEBUG
+    file: gateway-test.log
+
+server.address: 0.0.0.0
+token.secret: 9SyECk96oDsTmXfogIieDI0cD/8FpnojlYSUJT5U9I/FGVmBz5oskmjOR8cbXTvoPjX+Pq/T/b1PqpHX0lYm0oCBjXWICA==
+app:
+    admin.userName: admin
+    service:
+        security: http://cas:9002/login/cas
+        home: http://cas:9002/
+
+cas:
+    url.prefix: http://cas:9002/cas/
+    service:
+        login: http://cas:9002/cas/login
+        logout: http://cas:9002/cas/logout
+
+spring:
+    redis:
+        host: redis
+        port: 6379
+        default_expire_time: 86400

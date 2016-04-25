@@ -1,0 +1,26 @@
+logging:
+    level:
+        org.springframework.security: DEBUG
+    file: resource-dev.log
+
+spring:
+    redis:
+        host: redis
+        port: 6379
+        default_expire_time: 86400
+
+server:
+    port: 9005
+    address: 0.0.0.0
+
+app.version: 1.0.0
+app.title: "MAX Cloud Resource API"
+app.description: "List of todo items for the demo"
+
+swagger:
+    title: "MAX Cloud Resource API"
+    description: "List of todo items for the demo"
+    termsOfServiceUrl: "http://max.gov/"
+    contact: "jeremy.hulick@netspective.com"
+    license: "Apache 2.0"
+    licenseUrl: "http://www.apache.org/licenses/LICENSE-2.0.html"
