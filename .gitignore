@@ -72,7 +72,7 @@ local.properties
 ######################
 # Package Files
 ######################
-*.jar
+#*.jar
 *.war
 *.ear
 *.db
@@ -123,9 +123,9 @@ Desktop.ini
 ######################
 # Gradle Wrapper
 ######################
-!gradle/wrapper/gradle-wrapper.jar
+#!gradle/wrapper/gradle-wrapper.jar
 
 ######################
 # Maven Wrapper
 ######################
-!.mvn/wrapper/maven-wrapper.jar
+#!.mvn/wrapper/maven-wrapper.jar
