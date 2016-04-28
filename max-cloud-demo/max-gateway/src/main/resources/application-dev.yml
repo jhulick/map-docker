@@ -18,18 +18,25 @@ token.secret: 9SyECk96oDsTmXfogIieDI0cD/8FpnojlYSUJT5U9I/FGVmBz5oskmjOR8cbXTvoPj
 app:
     admin.userName: admin
     service:
+#        security: http://localhost:8200/login/cas
         security: http://localhost:18200/login/cas
-#        security: http://localhost:18200/j_spring_cas_security_check
+#        home: http://localhost:8200/
         home: http://localhost:18200/
-
 cas:
     url.prefix: http://cas:9002/cas/
     service:
-        login: http://localhost:19002/cas/login
-        logout: http://localhost:19002/cas/logout
+        login: ${cas.url.prefix}/login
+        logout: ${cas.url.prefix}/logout
+        rest: ${cas.url.prefix}/rv1/tickets
+
+#cas:
+#    url.prefix: http://cas:9002/cas/
+#    service:
+#        login: http://localhost:19002/cas/login
+#        logout: http://localhost:19002/cas/logout
 
 spring:
     redis:
-        host: redis
+        host: localhost
         port: 6379
         default_expire_time: 86400

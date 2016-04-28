@@ -9,6 +9,9 @@ import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import gov.max.microservices.registry.config.Constants;
+
+import gov.max.microservices.registry.dashboard.config.EnableDashboard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,11 +22,10 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
-import gov.max.microservices.registry.config.Constants;
-
 @SpringBootApplication
 @EnableEurekaServer
 @EnableConfigServer
+@EnableDashboard
 public class MaxRegistry {
 
     private static final Logger log = LoggerFactory.getLogger(MaxRegistry.class);
@@ -36,6 +38,7 @@ public class MaxRegistry {
      * <p/>
      * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
      * <p/>
+     * </p>
      */
     @PostConstruct
     public void initApplication() throws IOException {
@@ -67,13 +70,13 @@ public class MaxRegistry {
     }
 
     /**
-     * If no profile has been configured, set by default the "prod" and "native" profile.
+     * If no profile has been configured, set by default the "dev" profile.
      */
     private static void addDefaultProfile(SpringApplication app, SimpleCommandLinePropertySource source) {
         if (!source.containsProperty("spring.profiles.active") &&
             !System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
 
-            app.setAdditionalProfiles(Constants.SPRING_PROFILE_PRODUCTION, Constants.SPRING_PROFILE_NATIVE);
+            app.setAdditionalProfiles(Constants.SPRING_PROFILE_DEVELOPMENT, Constants.SPRING_PROFILE_NATIVE);
         }
     }
 }

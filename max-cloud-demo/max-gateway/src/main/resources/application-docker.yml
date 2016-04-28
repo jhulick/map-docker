@@ -1,0 +1,34 @@
+server:
+    port: 8200 # issue with host docker ubuntu on port 8080, so change to 8200
+
+logging:
+    level:
+        org.springframework.security: TRACE
+    file: gateway-docker.log
+
+zuul:
+    routes:
+        ui:
+            url: http://ui:8081
+        resource:
+            url: http://resource:9005
+
+server.address: 0.0.0.0
+token.secret: 9SyECk96oDsTmXfogIieDI0cD/8FpnojlYSUJT5U9I/FGVmBz5oskmjOR8cbXTvoPjX+Pq/T/b1PqpHX0lYm0oCBjXWICA==
+app:
+    admin.userName: admin
+    service:
+        security: http://localhost:18200/login/cas
+        home: http://localhost:18200/
+cas:
+    url.prefix: https://login.test.max.gov/cas
+    service:
+        login: ${cas.url.prefix}/login
+        logout: ${cas.url.prefix}/logout
+        rest: ${cas.url.prefix}/rv1/tickets
+
+spring:
+    redis:
+        host: redis
+        port: 6379
+        default_expire_time: 86400

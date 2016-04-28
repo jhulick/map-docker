@@ -1,0 +1,48 @@
+<h3>
+    Dashboard
+    <small>{{ 'dashboard.WELCOME' | translate:{ appName: app.name } }} !</small>
+</h3>
+<div class="row">
+
+    <div class="col-md-4">
+        <!-- START panel tab-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <!--<uib-tab-heading>-->
+                    <!--<em class="fa fa-clock-o fa-fw"></em>Applications Panel-->
+                <!--</uib-tab-heading>-->
+                <div class="panel-heading">
+                    <!--<div class="pull-right label label-danger">5</div>-->
+                    <!--<div class="pull-right label label-success">12</div>-->
+                    <div class="panel-title">Applications</div>
+                </div>
+
+                <div>
+                    <!-- START Applicationslist group-->
+                    <div class="list-group mb0">
+                        <a href="#" class="list-group-item bt0" ui-sref="app.dashboard.select({id: application.name})"
+                           ng-repeat="application in applications track by application.name" active="application.active">
+                            <span class="label label-{{application.badge}}">{{ application.instanceUp }} / {{ application.instanceCount }}</span>
+                            <!--<span class="label label-purple pull-right">just now</span>-->
+                            <em class="fa fa-fw fa-desktop mr"></em><strong>{{application.name}}</strong>
+                        </a>
+                    </div>
+                </div>
+                <!-- START panel footer-->
+                <!--<div class="panel-footer clearfix">-->
+                    <!--<div class="input-group">-->
+                        <!--<input type="text" placeholder="Search message .." class="form-control input-sm"/>-->
+                       <!--<span class="input-group-btn">-->
+                          <!--<button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i>-->
+                          <!--</button>-->
+                       <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!-- END panel-footer-->
+            </div>
+        </div>
+    </div>
+
+    <div ui-view>
+
+</div>

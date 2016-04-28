@@ -1,8 +1,10 @@
 package gov.max.microservices.registry;
 
 import gov.max.microservices.registry.config.Constants;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
