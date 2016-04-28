@@ -23,3 +23,9 @@ spring:
 #                    uri: https://github.com/max/max-registry/
 #                    search-paths: central-config
                 prefix: /config
+
+    http:
+        encoding:
+            charset: UTF-8 # the encoding of HTTP requests/responses
+            enabled: true # enable http encoding support
+            force: true # force the configured encoding

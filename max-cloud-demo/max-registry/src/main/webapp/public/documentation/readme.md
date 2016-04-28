@@ -18,7 +18,7 @@ The communication technology could be anything you like. Eureka helps you find t
 
 ### High level architecture
 
-![Alt text](./eureka_architecture.png)
+![Alt text](./documentation/eureka_architecture.png)
 
 Services register with Eureka and then send heartbeats to renew their leases every 30 seconds. If the client cannot renew the lease for a few times, it is taken out of the server registry in about 90 seconds. The registration information and the renewals are replicated to all the Eureka nodes in the cluster. The clients from any zone can look up the registry information (happens every 30 seconds) to locate their services (which could be in any zone) and make remote calls.
 

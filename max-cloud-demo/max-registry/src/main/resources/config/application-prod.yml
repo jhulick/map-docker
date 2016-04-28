@@ -20,3 +20,8 @@ spring:
                     search-locations: file:./central-config
                 prefix: /config
 
+    http:
+        encoding:
+            charset: UTF-8 # the encoding of HTTP requests/responses
+            enabled: true # enable http encoding support
+            force: true # force the configured encoding
