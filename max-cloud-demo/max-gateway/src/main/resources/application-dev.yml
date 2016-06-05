@@ -22,21 +22,21 @@ app:
         security: http://localhost:18200/login/cas
 #        home: http://localhost:8200/
         home: http://localhost:18200/
-cas:
-    url.prefix: http://cas:9002/cas/
-    service:
-        login: ${cas.url.prefix}/login
-        logout: ${cas.url.prefix}/logout
-        rest: ${cas.url.prefix}/rv1/tickets
-
 #cas:
 #    url.prefix: http://cas:9002/cas/
 #    service:
-#        login: http://localhost:19002/cas/login
-#        logout: http://localhost:19002/cas/logout
+#        login: ${cas.url.prefix}/login
+#        logout: ${cas.url.prefix}/logout
+#        rest: ${cas.url.prefix}/rv1/tickets
+
+cas:
+    url.prefix: http://cas:9002/cas/
+    service:
+        login: http://localhost:19002/cas/login
+        logout: http://localhost:19002/cas/logout
 
 spring:
     redis:
-        host: localhost
+        host: redis
         port: 6379
         default_expire_time: 86400

@@ -9,20 +9,21 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/trusty64"
 
+  config.vm.provision :shell, :path => "scripts/setup.sh", run: "always"
+
   config.vm.synced_folder "../max-cloud-demo", "/max-cloud-demo", create: true
+
   config.vm.network "forwarded_port", guest: 8200, host: 18200
   config.vm.network "forwarded_port", guest: 8081, host: 18081 # UI for testing
   config.vm.network "forwarded_port", guest: 8761, host: 18761
   #config.vm.network "forwarded_port", guest: 8989, host: 18989
   config.vm.network "forwarded_port", guest: 9002, host: 19002
+
   config.vm.provider "virtualbox" do |v|
     v.memory = 3000
     v.cpus = 2
   end
 
-  # Setup the prior to container rebuild
-  #config.vm.provision "shell", run: "always", inline: $setup
-  
   config.vm.provision "docker" do |d|
     d.build_image "--tag=java /vagrant/java"
     d.build_image "--tag=redis /vagrant/redis"
